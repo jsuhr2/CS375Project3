@@ -7,6 +7,18 @@
 
 using namespace std;
 
+class Node{
+	public:
+		Item item;
+		Node* left;
+		Node* right;
+		Node* parent;
+		Node();
+};
+
+Node::Node(){
+}
+
 class Item{
 	public:
 		double weight;
@@ -28,11 +40,37 @@ Item::Item(double w, double v){
 class Knapsack{
 	public:
 		vector<Item> items;
+		vector<Node> tree;
 		Knapsack();
-		void sortByRatio();
+		void sortByRatio(int, int);
+		int partition(int, int);
 };
 
 Knapsack::Knapsack(){
+}
+
+//quicksort algorithm
+void Knapsack::sortByRatio(int p, int q){
+	int r;
+	if(p < q){
+		r = partition(p,q);
+		sortByRatio(p, r);
+		sortByRatio(r + 1, q);
+	}
+}
+//partitioning of quicksort
+int Knapsack::partition(int p, int q){
+	double x = items[p].ratio;
+	int i = p;
+	int j;
+	for(j = p + 1; j < q; j++){
+		if(items[j].ratio >= x){
+			i = i + 1;
+			swap(items[i], items[j]);
+		}
+	}
+	swap(items[i], items[p]);
+	return i;
 }
 
 int main(int argc, char** argv){
@@ -64,7 +102,27 @@ int main(int argc, char** argv){
 		input >> tempValue;
 		sack.items.push_back(Item(tempWeight, tempValue));
 	}
-	
+/*	
+	for(auto i: sack.items){
+		cout << i.ratio << ", ";
+	}
+	cout << endl;
+*/	
+	sack.sortByRatio(0, sack.items.size());
+/*	
+	for(auto i: sack.items){
+		cout << i.ratio << ", ";
+	}
+	cout << endl;
+*/
+	if(arv[3] == 0){
+		
+	} else if(argv[3] == 1){
+		
+	} else if(argv[3] == 2){
+		
+	}
+
 	input.close();
 	output.close();
 	return 0;
