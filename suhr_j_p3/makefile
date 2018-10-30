@@ -17,11 +17,7 @@ run: all
 	./submission badGreedyInput.txt outputbadGreedy1.txt 0
 	./submission badGreedyInput.txt outputbadGreedy2.txt 1
 	./submission badImprovedGreedyInput.txt outputbadImprovedGreedy2.txt 1
-
-run2: all
 	./submission mediumInput.txt mediumOutputGreedy2.txt 1
-
-run3: all
 	./submission mediumInput.txt mediumOutputBacktracking.txt 2
 
 clean:
