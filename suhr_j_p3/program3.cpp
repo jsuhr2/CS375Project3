@@ -59,6 +59,7 @@ void Knapsack::sortByRatio(int p, int q){
 		sortByRatio(r + 1, q);
 	}
 }
+
 //partitioning of quicksort
 int Knapsack::partition(int p, int q){
 	double x = items[p].ratio;
@@ -102,25 +103,20 @@ int max(int x, int y){
 }
 
 int backtracking(Knapsack sack, int numItems, int maxCapacity){
-	
-}
-
-/*
-int backtracking(Knapsack sack, int numItems, int maxCapacity){
-	int K[numItems + 1][maxCapacity + 1];
+	int optimal[numItems + 1][maxCapacity + 1];
 	for(int i = 0; i <= numItems; i++){
 		for(int j = 0; j <= maxCapacity; j++){
 			if(i == 0 || j == 0)
-				K[i][j] = 0;
+				optimal[i][j] = 0;
 			else if(sack.items.at(i - 1).weight <= j)
-				K[i][j] = max((sack.items.at(i - 1).value + K[i - 1][j - (int) sack.items.at(i - 1).weight]), K[i - 1][j]);
+				optimal[i][j] = max((sack.items.at(i - 1).value + optimal[i - 1][j - (int) sack.items.at(i - 1).weight]), optimal[i - 1][j]);
 			else
-				K[i][j] = K[i - 1][j];
+				optimal[i][j] = optimal[i - 1][j];
 		}
 	}
-	return K[numItems][maxCapacity];
+	return optimal[numItems][maxCapacity];
 }
-*/
+
 
 int main(int argc, char** argv){
 
@@ -161,13 +157,6 @@ int main(int argc, char** argv){
 			sack.items.push_back(Item(tempWeight, tempValue));
 			itemsConsidered++;
 		}
-/*	
-		for(auto i: sack.items){
-			cout << i.ratio << ", ";
-		}
-		cout << endl;
-*/
-
 		if(decision == 0){
 			sack.sortByRatio(0, sack.items.size());
 			for(unsigned int i = 0; i < sack.items.size(); i++){
@@ -182,7 +171,6 @@ int main(int argc, char** argv){
 			sack.sortByRatio(0, sack.items.size());
 			maxProfit = backtracking(sack, numItems, maxCapacity);
 		}
-		
 		output << numItems << " " << maxProfit << " " << ((float(clock() - BEGIN_TIME)/CLOCKS_PER_SEC) * 1000) << endl;
 	}
 	input.close();

@@ -10,10 +10,19 @@ $(P): $(P).o
 	g++ $(CFLAGS) $(P).o -o submission
 
 run: all
-	./submission input.txt output.txt 0
+	./submission smallInput.txt smallOutputGreedy2.txt 1
+	./submission smallInput.txt smallOutputBacktracking.txt 2
+	./submission input.txt outputGreedy2.txt 1
+	./submission input.txt outputBacktracking.txt 2
+	./submission badGreedyInput.txt outputbadGreedy1.txt 0
+	./submission badGreedyInput.txt outputbadGreedy2.txt 1
+	./submission badImprovedGreedyInput.txt outputbadImprovedGreedy2.txt 1
 
 run2: all
-	./submission input3.txt output.txt 2
+	./submission mediumInput.txt mediumOutputGreedy2.txt 1
+
+run3: all
+	./submission mediumInput.txt mediumOutputBacktracking.txt 2
 
 clean:
 	rm $(P).o
